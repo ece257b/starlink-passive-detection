@@ -36,19 +36,46 @@ Pre-generated figures are in `figures/` — the scripts regenerate them when run
 
 ---
 
-## Quickstart
+## How to Run
 
+**Requirements:** Python 3.8+, no SDR hardware needed.
+
+**Step 1 — Clone the repository**
 ```bash
-git clone <this-repo>
-cd starlink-repo
-pip install numpy scipy matplotlib
-python3 scripts/1_detection_statistics.py
-python3 scripts/2_plot_750hz_fingerprint.py   # → figures/750hz_fingerprint.png
-python3 scripts/3_cell_broadcast_validation.py # → figures/cell_broadcast_validation.png
-python3 scripts/4_plot_doppler_isolation.py    # → figures/doppler_isolation.png  (~30s)
+git clone https://github.com/lukepwilson/starlink-passive-detection.git
+cd starlink-passive-detection
 ```
 
-Python 3.8+ required. No SDR hardware needed.
+**Step 2 — Install dependencies**
+```bash
+pip install numpy scipy matplotlib
+```
+
+**Step 3 — Print detection statistics**
+```bash
+python3 scripts/1_detection_statistics.py
+```
+Prints a summary table: total monitoring windows, soft/hard detection counts, unique satellites, and peak z-score. No output file generated.
+
+**Step 4 — Plot the 750 Hz fingerprint**
+```bash
+python3 scripts/2_plot_750hz_fingerprint.py
+```
+Generates `figures/750hz_fingerprint.png` — the core result showing the Starlink OFDM frame rate spectral peak at 750 Hz across 5 independent detection events.
+
+**Step 5 — Cell broadcast validation**
+```bash
+python3 scripts/3_cell_broadcast_validation.py
+```
+Generates `figures/cell_broadcast_validation.png` — compares z-score distributions before and after deploying a real Starlink terminal. The ~0% change proves Starlink uses cell-broadcast architecture.
+
+**Step 6 — Doppler satellite isolation**
+```bash
+python3 scripts/4_plot_doppler_isolation.py
+```
+Generates `figures/doppler_isolation.png` — loads the raw IQ snippet and shows individual satellites separated by Doppler shift. Takes ~30 seconds to process.
+
+All output figures are also pre-generated in `figures/` if you just want to view the results without running anything.
 
 ---
 
